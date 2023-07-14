@@ -37,3 +37,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+## Example
+![pathMapperViewPic](https://github.com/vladi4560/PathMapper/assets/64600121/183c655b-1bf7-4416-af84-52563a4b6ad8)
+
