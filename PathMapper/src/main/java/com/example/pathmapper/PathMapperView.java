@@ -100,16 +100,9 @@ public class PathMapperView extends View {
         pathBitmap = Bitmap.createBitmap(bitmapSize, bitmapSize, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(pathBitmap);
 
-        double middle = (MaxLatitude + MinLatitude) / 2;
-        double equator = Math.abs(middle);
-        proportion = Math.cos(Math.toRadians(equator));
-
         // scale the coordinates to the bitmap
-        scaleCoordinates = Math.max((MaxLongitude - MinLongitude)*proportion, MaxLatitude - MinLatitude);
-        latitudeOffset = bitmapSize * (1 - ((MaxLatitude - MinLatitude) / scaleCoordinates)) / 2;
-        longitudeOffset = bitmapSize * (1 - (proportion*(MaxLongitude - MinLongitude) / scaleCoordinates)) / 2;
-        int marge = (int) Math.ceil(pathSize * 5);
-        bitmapSize = bitmapSize - 25;
+        setScale();
+
         // First point in the Path
         float x = (float) (longitudeOffset + (bitmapSize) * ((coordinates.get(0).getLong() - MinLongitude) * proportion/ scaleCoordinates));
         float y = (float) (-latitudeOffset + bitmapSize - ((bitmapSize) * ((coordinates.get(0).getLat() - MinLatitude) / scaleCoordinates)));
@@ -128,6 +121,18 @@ public class PathMapperView extends View {
         canvas.drawPath(path, pathPaint);
 
         return pathBitmap;
+    }
+
+    private void setScale(){
+        double middle = (MaxLatitude + MinLatitude) / 2;
+        double equator = Math.abs(middle);
+        proportion = Math.cos(Math.toRadians(equator));
+
+
+        scaleCoordinates = Math.max((MaxLongitude - MinLongitude)*proportion, MaxLatitude - MinLatitude);
+        latitudeOffset = bitmapSize * (1 - ((MaxLatitude - MinLatitude) / scaleCoordinates)) / 2;
+        longitudeOffset = bitmapSize * (1 - (proportion*(MaxLongitude - MinLongitude) / scaleCoordinates)) / 2;
+        bitmapSize = bitmapSize - 25;
     }
     private void setColors(){
         // Set the Colors of the path
